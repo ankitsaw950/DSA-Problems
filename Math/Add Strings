@@ -1,0 +1,31 @@
+class Solution {
+public:
+    string addStrings(string num1, string num2) {
+        int i = num1.size() - 1; // Index for the last digit of num1
+        int j = num2.size() - 1; // Index for the last digit of num2
+        int carry = 0;           // To store carry over
+        string result = "";      // Resultant string for the sum
+
+        // Loop until both strings are fully processed and no carry remains
+        while (i >= 0 || j >= 0 || carry > 0) {
+            int digit1 = (i >= 0)
+                             ? num1[i--] - '0'
+                             : 0; // Get digit from num1 or 0 if out of bounds
+            int digit2 = (j >= 0)
+                             ? num2[j--] - '0'
+                             : 0; // Get digit from num2 or 0 if out of bounds
+
+            int sum =
+                digit1 + digit2 +
+                carry; // Sum the digits plus any carry from the previous step
+            carry = sum / 10; // Update carry for next iteration
+            result +=
+                (sum % 10) + '0'; // Append the last digit of sum to the result
+        }
+
+        // Since we constructed the result from least significant to most
+        // significant digit, reverse it
+        reverse(result.begin(), result.end());
+        return result;
+    }
+};
