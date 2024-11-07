@@ -24,3 +24,6 @@
    - Elements are stored in **no particular order**.
    - The average time complexity of operations is **O(1)** due to hashing.
 
+### 5. **Finding the number of bits required to store a number**
+   - bits = ⌊ log2(n) ⌋ + 1
+
