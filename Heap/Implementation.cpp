@@ -3,95 +3,105 @@ using namespace std;
 
 class MaxHeap
 {
-    private:
-    int arr[5];
-    int size ;
+private:
+    int arr[100];
+    int size;
 
-    public:
-    MaxHeap(){
+public:
+    MaxHeap()
+    {
         size = 0;
     }
 
-    void insert(int val){
+    void insert(int val)
+    {
         arr[size] = val;
         int i = size;
         size++;
 
-        // Step up , arrange the inserted node to its correct position
+        while (i > 0)
+        {
+            int parent = (i - 1) / 2;
 
-        while(i>0){
-            int parent = (i-1)/2;
-
-            if(arr[parent] < arr[i]){
-                swap(arr[parent],arr[i]);
+            if (arr[parent] < arr[i])
+            {
+                swap(arr[parent], arr[i]);
                 i = parent;
             }
-            else{
+            else
+            {
                 break;
             }
         }
-
     }
 
-
-    void deleteNode(){
-        if(size ==0 ){
-            cout<<"No element to delete .\n";
+    void deleteMax()
+    {
+        if (size == 0)
+        {
+            cout << "The heap is empty" << endl;
             return;
         }
 
-        cout<<arr[0]<<" is deleted .\n";
-        arr[0] = arr[size-1];
+        arr[0] = arr[size - 1];
         size--;
-
-        // Now we need to place root element at its correct position
-
         int i = 0;
 
-        while(true){
-            int left =  2*i + 1;
-            int right =  2*i + 2;
-
+        while (true)
+        {
+            int leftChild = 2 * i + 1;
+            int rightChild = 2 * i + 2;
             int largest = i;
 
-            if(left < size && arr[largest]< arr[left]){
-                largest = left;
+            if (leftChild < size && arr[i] < arr[leftChild])
+            {
+                largest = leftChild;
             }
 
-            if(right < size && arr[largest]< arr[right]){
-                largest = right;
+            if (rightChild < size && arr[largest] < arr[rightChild])
+            {
+                largest = rightChild;
             }
 
-            if(largest != i){
-                swap(arr[largest],arr[i]);
+            if (largest != i)
+            {
+                swap(arr[largest], arr[i]);
                 i = largest;
-            } else{
+            }
+            else
+            {
                 break;
             }
         }
     }
 
-    void printHeap(){
-        cout<<"Printing the heap elements : \n";
-        for(int i =0;i<size;i++){
-            cout<<arr[i]<<" ";
+    void printHeap()
+    {
+        for (int i = 0; i < size; i++)
+        {
+            cout << arr[i] << " ";
         }
-        cout<<endl;
+        cout << endl;
     }
-}
-
-;
+};
 int main()
 {
 
     MaxHeap h;
-    h.insert(1);
-    h.insert(12);
-    h.insert(11);
-    h.insert(4);
-    h.insert(15);
-    // h.insert(1);
+    h.insert(30);
+    h.insert(40);
+    h.insert(50);
+    h.insert(10);
+    h.insert(20);
+    h.insert(35);
+    h.insert(80);
 
+    cout << "The heap is : ";
     h.printHeap();
+
+    h.deleteMax();
+    cout << "The heap after deleting max element : ";
+    h.printHeap();
+
     return 0;
 }
